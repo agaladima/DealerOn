@@ -17,10 +17,31 @@ xobj.onreadystatechange = function () {
   if (xobj.readyState == 4 && xobj.status == "200") {
     jsonData = JSON.parse(xobj.responseText);
     console.log(jsonData);
-    var div = document.createElement("div");
-    var textnode = document.createTextNode(jsonData.data[0].name);
-    div.appendChild(textnode);
-    document.querySelector(".content-container").appendChild(div);
+
+    // Declare variable to store the data
+
+    // Loop over json data
+    for (var i=0; i < jsonData.length; i++) {
+      // Set fields
+      let id = jsonData.data[i].id;
+      let name = jsonData.data[i].name;
+      let quote = jsonData.data[i].quote;
+      let birthday = jsonData.data[i].birthday;
+      let image_url = jsonData.data[i].image_url;
+
+      // Add the variables to the DOM
+      let div = document.createElement("div");
+
+      
+      let id_node = document.createTextNode();
+      let name_node = document.createTextNode();
+      let quote_node = document.createTextNode();
+      let birthday_node = document.createTextNode();
+      let image_url_node = document.createTextNode();
+
+      div.appendChild(textnode);
+      document.querySelector(".content-container").appendChild(div);
+    }
   }
 };
 xobj.send(null);
