@@ -1,22 +1,31 @@
-function loadJSON(file, callback) {   
-  var xobj = new XMLHttpRequest();
-  xobj.overrideMimeType("application/json");
-  xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
-  xobj.onreadystatechange = function () {
-    if (xobj.readyState == 4 && xobj.status == "200") {
-      // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-      callback(xobj.responseText);
-    }
-  };
-  xobj.send(null);  
-}
- 
+// Function for loading the JSON file
+// function loadJSON(file, callback) {   
+  
+// }
 
-function load() {
-  loadJSON("../db.json", function(response) {
-    var actual_JSON = JSON.parse(response);
-    console.log(actual_JSON);
-  });  
-}
+// function load() {
+//   loadJSON("../db.json", function(response) {});
+// }
+var jsonData;
 
-load();
+var xobj = new XMLHttpRequest();
+//xobj.overrideMimeType("application/json");
+// Retreiving selected document
+xobj.open('GET', 'http://localhost:8080/db.json', true); 
+xobj.onreadystatechange = function () {
+  // When data has loaded completely and status is OK
+  if (xobj.readyState == 4 && xobj.status == "200") {
+    jsonData = JSON.parse(xobj.responseText);
+    console.log(jsonData);
+    var div = document.createElement("div");
+    var textnode = document.createTextNode(jsonData.data[0].name);
+    div.appendChild(textnode);
+    document.querySelector(".content-container").appendChild(div);
+  }
+};
+xobj.send(null);
+
+
+// load the JSON file and return its contents
+
+
